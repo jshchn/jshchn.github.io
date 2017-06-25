@@ -55,7 +55,7 @@
 
 
   <script>
-    var haystack = ["portfolio", "github", "linkedin", "twitter"];
+    var haystack = ["portfolio", "github", "linkedin", "twitter", "clear"];
     var search = document.getElementById("search");
     if( localStorage.didMath){
       search.placeholder = localStorage.didMath;
@@ -101,6 +101,12 @@
         }
         else if (txtVal == "twitter"){
           window.location.assign("https://www.twitter.com/jshchn/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (txtVal == "clear"){
+          localStorage.clear();
+          window.location.assign("https://jshchn.github.io");
           // Needed to prevent default behavior of the submit event
           return false
         }
