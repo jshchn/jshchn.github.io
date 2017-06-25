@@ -121,7 +121,8 @@
             ans = v1 * v2;
           };
           localStorage.setItem( "didMath",  txtVal + "=" + ans);
-          return True;
+          window.location.reload();
+          return false
         }
     }
 
