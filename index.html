@@ -41,7 +41,7 @@
 </head>
 
 <body>
-  <form  method="post" onsubmit="return showInput();">
+  <form method="post" onsubmit="return showInput();">
       <div class="container">
         <input type="text" name="search" id="search" />
       </div>
@@ -55,7 +55,13 @@
 
 
   <script>
-    var haystack = ["portfolio", "github", "linkedin"];
+    var haystack = ["portfolio", "github", "linkedin", "twitter"];
+    var search = document.getElementById("search");
+    if( localStorage.didMath){
+      search.placeholder = localStorage.didMath;
+    } else{
+      search.placeholder = "jshchn";
+    }
 
     $(function(){
       $('#search').suggest(haystack);
@@ -70,29 +76,56 @@
                     this.form.submit();
                 }
             });
-
             $(this).find('input[type=submit]').hide();
         });
     });
 
     function showInput() {
-        var toGo = document.getElementById("search").value;
-        if (toGo == "linkedin"){
+        var txtVal = search.value;
+        var regexp = /(\d+)(?:\s*([-+*\/])\s*((?:\s[-+])?\d+)\s*)+$/;
+        var match = regexp.exec(txtVal);
+        if (txtVal == "linkedin"){
           window.location.assign("https://www.linkedin.com/in/joshua-chan-b70a7740/");
           // Needed to prevent default behavior of the submit event
           return false
         }
-        else if (toGo == "portfolio"){
+        else if (txtVal == "portfolio"){
           window.location.assign("https://jshchn.github.io/portfolio/");
           // Needed to prevent default behavior of the submit event
           return false
         }
-        else if (toGo == "github"){
+        else if (txtVal == "github"){
           window.location.assign("https://github.com/jshchn/");
           // Needed to prevent default behavior of the submit event
           return false
         }
+        else if (txtVal == "twitter"){
+          window.location.assign("https://www.twitter.com/jshchn/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (match && match.length == 4){
+          var v1 = parseInt( match[1] );
+          var operator = match[2];
+          var v2 = parseInt( match[3] );
+          if(operator == "+"){
+            ans = v1 + v2;
+          };
+          if(operator == "-"){
+            ans = v1 - v2;
+          };
+          if(operator == "/"){
+            ans = v1 / v2;
+          };
+          if(operator == "*"){
+            ans = v1 * v2;
+          };
+          localStorage.setItem( "didMath",  txtVal + "=" + ans);
+          return True;
+        }
     }
+
+
 
   </script>
 
