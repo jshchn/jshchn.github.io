@@ -24,16 +24,12 @@
       border: none;
       outline: none;
     }
-
     .container {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       left: 50%;
       transform: translateX(-50%);
-
-
-
       background: transparent;
       border: none;
     }
@@ -47,13 +43,8 @@
       </div>
   </form>
   </div>
-
-
   <script src="src/jquery-3.2.1.min.js"></script>
   <script src="src/jquery.suggest.js"></script>
-
-
-
   <script>
     var haystack = ["portfolio", "github", "linkedin", "twitter", "clear"];
     var search = document.getElementById("search");
@@ -62,7 +53,6 @@
     } else{
       search.placeholder = "jshchn";
     }
-
     $(function(){
       $('#search').suggest(haystack);
     });
@@ -79,7 +69,6 @@
             $(this).find('input[type=submit]').hide();
         });
     });
-
     function showInput() {
         var txtVal = search.value;
         var regexp = /(\d+)(?:\s*([-+*\/])\s*((?:\s[-+])?\d+)\s*)+$/;
@@ -127,17 +116,10 @@
             ans = v1 * v2;
           };
           localStorage.setItem( "didMath",  txtVal + "=" + ans);
-          window.location.assign("https://jshchn.github.io");
-          return false
         }
+      window.location.assign("https://jshchn.github.io");
+      return false
     }
-
-
-
   </script>
-
-
-
-
 </body>
 </html>
