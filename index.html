@@ -1,1 +1,150 @@
-jshchn
+<!doctype html>
+<head>
+  <title>jshchn</title>
+  <style>
+    html,body {
+        height:100%;
+        margin:0;
+        padding:0;
+        background-color: white;
+    }
+    input#search {
+
+      /* FONT SHIT */
+      font-size: 5em;
+      letter-spacing: 0;
+      font-weight: normal;
+      font-family: Helvetica, Arial, sans-serif !important;
+
+      /* CRITCAL SHIT */
+      position: relative;
+      z-index: 10;
+
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 50%;
+      transform: translateX(-50%);
+
+
+
+      background: transparent;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <form  method="post" onsubmit="return showInput();">
+      <div class="container">
+        <input type="text" name="search" id="search" />
+      </div>
+  </form>
+  </div>
+
+
+  <script src="src/jquery-3.2.1.min.js"></script>
+  <script src="src/jquery.suggest.js"></script>
+
+
+
+  <script>
+    var haystack = ["portfolio", "github", "linkedin"];
+
+    $(function(){
+      $('#search').suggest(haystack);
+    });
+
+    // On enter pressed, submit
+    $(function() {
+        $('form').each(function() {
+            $(this).find('input').keypress(function(e) {
+                // Enter pressed?
+                if(e.which == 10 || e.which == 13) {
+                    this.form.submit();
+                }
+            });
+
+            $(this).find('input[type=submit]').hide();
+        });
+    });
+
+    function showInput() {
+        var toGo = document.getElementById("search").value;
+        if (toGo == "linkedin"){
+          window.location.assign("https://www.linkedin.com/in/joshua-chan-b70a7740/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (toGo == "portfolio"){
+          window.location.assign("https://jshchn.github.io/portfolio/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (toGo == "github"){
+          window.location.assign("https://github.com/jshchn/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+    }
+
+  </script>
+
+
+
+
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script src="https://rawgithub.com/polarblau/suggest/master/src/jquery.suggest.js"></script>
+    <style> 
+    input[type=text] {
+        width: 200px;
+        height: 200px;
+        border: 0px;
+        outline-width: 0;
+        font-size: 170px;
+
+    /*  box-sizing: border-box;
+        border-radius: 4px;    
+        background-color: white;
+        background-position: 10px 10px; 
+        background-repeat: no-repeat;
+        padding: 12px 20px 12px 40px;*/
+    }
+
+    input[type=text]:focus {
+        width: 100%;
+    }
+    </style>
+</head>
+<body>
+  <div class="container">
+      <div>
+        <h3><strong>Demo</strong></h3>
+        <input type="text" name="search" id="search" />
+        <p>
+          <small>(Start typing the name of a programming language&hellip;)</small>
+        </p>
+      </div>
+  </div>
+<script>
+    var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC"];
+    $(function(){
+      $('#search').suggest(haystack)
+    });
+</script>
+
+</body>
+</html> -->
