@@ -34,55 +34,51 @@
       border: none;
     }
 
-/* The Modal (background) */
-.modal {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    /* The Modal (background) */
+    .modal {
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
 
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
 
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
-  }
+      }
 
-.modal-header {
-    padding: 2px 16px;
-    background-color: #5cb85c;
-    color: white;
-  }
-  /* Modal Body */
-  .modal-body {padding: 2px 16px;}
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+      }
+    /* Modal Body */
+    .modal-body {padding: 2px 16px;}
 
-  /* Modal Content */
-  .modal-content {
-      position: relative;
-      background-color: #fefefe;
-      margin: auto;
-      padding: 0;
-      width: 80%;
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  }
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    }
 
-  h2, h3{
-    font-family: Helvetica;
-    line-height: 20%;
-  }
+    h2, h3{
+      font-family: Helvetica;
+      line-height: 20%;
+    }
 
-  p{
-    font-family: Helvetica;
-    font-size: 14px;
-    line-height: 20%;
-    font-weight: lighter;
-  }
-
-
-
-
+    p{
+      font-family: Helvetica;
+      font-size: 14px;
+      line-height: 20%;
+      font-weight: lighter;
+    }
   </style>
 </head>
 
@@ -96,7 +92,6 @@
 
   <!-- The Modal -->
   <div id="help" class="modal">
-
     <!-- Modal content -->
     <div class="modal-content">
       <div class="modal-header">
@@ -127,6 +122,7 @@
   <script>
     var haystack = ["portfolio", "github", "linkedin", "twitter", "clear", "help"];
     var search = document.getElementById("search");
+    search.autofocus = "on";
     if( localStorage.didMath){
       search.placeholder = localStorage.didMath;
     } else{
@@ -136,11 +132,9 @@
     var help = document.getElementById("help");
     if( localStorage.needHelp){
       help.style.display = "block";
-      help.autofocus = true;
     }
     else{
       help.style.display = "none";
-      search.autofocus = true;
     }
 
     $(function(){
@@ -160,7 +154,7 @@
         });
     });
     function showInput() {
-        var txtVal = search.value;
+        var txtVal = search.value.toLowerCase();
         var regexp = /(\d+)(?:\s*([-+*\/])\s*((?:\s[-+])?\d+)\s*)+$/;
         var match = regexp.exec(txtVal);
         if (txtVal == "linkedin"){
@@ -191,7 +185,7 @@
         }
         else if (txtVal == "help"){
           localStorage.setItem( "needHelp",  true);
-          window.location.assign("https://jshchn.github.io");
+          window.location.assign("file:///C:/Users/Joshua/Downloads/jshchn.github.io/index.html");
           // Needed to prevent default behavior of the submit event
           return false
         }
@@ -213,7 +207,7 @@
           };
           localStorage.setItem( "didMath",  txtVal + "=" + ans);
         }
-      window.location.assign("https://jshchn.github.io");
+      window.location.assign("file:///C:/Users/Joshua/Downloads/jshchn.github.io/index.html");
       return false
     }
 

@@ -72,7 +72,6 @@
           'autocomplete'    : "off",
           'spellcheck'      : "false",
           'dir'             : "ltr",
-          'autofocus'       : "on"
         })
         // by setting the background to transparent, we will
         // be able to "see through" to the suggestion helper
