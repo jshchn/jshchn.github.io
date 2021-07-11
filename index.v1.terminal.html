@@ -1,0 +1,232 @@
+<!doctype html>
+<head>
+  <title>jshchn</title>
+  <style>
+    html,body {
+        height:100%;
+        margin:0;
+        padding:0;
+        background-color: white;
+    }
+    input#search {
+
+      /* FONT SHIT */
+      font-size: 5em;
+      letter-spacing: 0;
+      font-weight: normal;
+      font-family: Helvetica, Arial, sans-serif !important;
+
+      /* CRITCAL SHIT */
+      position: relative;
+      z-index: 10;
+
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+    .container {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 50%;
+      transform: translateX(-50%);
+      background: transparent;
+      border: none;
+    }
+
+    /* The Modal (background) */
+    .modal {
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+      }
+
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+      }
+    /* Modal Body */
+    .modal-body {padding: 2px 16px;}
+
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        width: 80%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    h2, h3{
+      font-family: Helvetica;
+      line-height: 20%;
+    }
+
+    p{
+      font-family: Helvetica;
+      font-size: 14px;
+      line-height: 20%;
+      font-weight: lighter;
+    }
+  </style>
+</head>
+
+<body>
+  <form method="post" onsubmit="return showInput();">
+      <div class="container">
+        <input type="text" name="search" id="search" />
+      </div>
+  </form>
+  </div>
+
+  <!-- The Modal -->
+  <div id="help" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Help</h2>
+      </div>
+      <div class="modal-body">
+        <h3>Commands:<h3>
+        <p>clear : reset page to default, escapes help</p>
+        <p>help : bring up help</p>
+        <p></p>
+        <h3>Sites:<h3>
+        <p>linkedin</p>
+        <p>github</p>
+        <p>portfolio</p>
+        <p>twitter</p>
+        <p></p>
+        <h3>Math:<h3>
+        <p>Additon (+)<p>
+        <p>Subtraction (-)<p>
+        <p>Division (/)<p>
+        <p>Multiplication (*)<p>
+      </div>
+    </div>
+  </div>
+
+  <script src="src/jquery-3.2.1.min.js"></script>
+  <script src="src/jquery.suggest.js"></script>
+  <script>
+    var haystack = ["portfolio", "github", "linkedin", "twitter", "clear", "help"];
+    var search = document.getElementById("search");
+    search.autofocus = "on";
+    if( localStorage.didMath){
+      search.placeholder = localStorage.didMath;
+    } else{
+      search.placeholder = "jshchn";
+    }
+
+    var help = document.getElementById("help");
+    if( localStorage.needHelp){
+      help.style.display = "block";
+    }
+    else{
+      help.style.display = "none";
+    }
+
+    $(function(){
+      $('#search').suggest(haystack);
+    });
+
+    // On enter pressed, submit
+    $(function() {
+        $('form').each(function() {
+            $(this).find('input').keypress(function(e) {
+                // Enter pressed?
+                if(e.which == 10 || e.which == 13) {
+                    this.form.submit();
+                }
+            });
+            $(this).find('input[type=submit]').hide();
+        });
+    });
+    function showInput() {
+        var txtVal = search.value.toLowerCase();
+        var regexp = /(\d+)(?:\s*([-+*\/])\s*((?:\s[-+])?\d+)\s*)+$/;
+        var match = regexp.exec(txtVal);
+        if (txtVal == "linkedin"){
+          window.location.assign("https://www.linkedin.com/in/joshua-chan-b70a7740/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (txtVal == "portfolio"){
+          window.location.assign("https://jshchn.github.io/portfolio/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (txtVal == "github"){
+          window.location.assign("https://github.com/jshchn/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (txtVal == "twitter"){
+          window.location.assign("https://www.twitter.com/jshchn/");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (txtVal == "clear"){
+          localStorage.clear();
+          window.location.assign("https://jshchn.github.io");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (txtVal == "help"){
+          localStorage.setItem( "needHelp",  true);
+          window.location.assign("https://jshchn.github.io");
+          // Needed to prevent default behavior of the submit event
+          return false
+        }
+        else if (match && match.length == 4){
+          var v1 = parseInt( match[1] );
+          var operator = match[2];
+          var v2 = parseInt( match[3] );
+          if(operator == "+"){
+            ans = v1 + v2;
+          };
+          if(operator == "-"){
+            ans = v1 - v2;
+          };
+          if(operator == "/"){
+            ans = v1 / v2;
+          };
+          if(operator == "*"){
+            ans = v1 * v2;
+          };
+          localStorage.setItem( "didMath",  txtVal + "=" + ans);
+        }
+      window.location.assign("https://jshchn.github.io");
+      return false
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == help) {
+          help.style.display = "none";
+          localStorage.removeItem( "needHelp" );
+      }
+    }
+
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+          help.style.display = "none";
+          localStorage.removeItem( "needHelp" );
+        }
+    });
+
+
+  </script>
+</body>
+</html>
